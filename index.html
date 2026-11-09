@@ -11,7 +11,7 @@
 :root{
   --bg:#F6F8F5; --surface:#FFFFFF; --ink:#16251D; --muted:#5B6B62; --line:#DCE4DE; --soft:#EAF0EB; --sel:#E3EEE6;
   --warn:#B4531F; --warnbg:#FBEDE3;
-  --k0:#3B6A9C; --k1:#D9771A; --k2:#C9434A; --k3:#3E918A; --k4:#4A8A40; --k5:#B89A16; --k6:#95618A; --k7:#D9707C; --k8:#87604B; --k9:#6E8419;
+  --k0:#3B6A9C; --k1:#D9771A; --k2:#C9434A; --k3:#3E918A; --k4:#4A8A40; --k5:#B89A16; --k6:#95618A; --k7:#D9707C; --k8:#87604B; --k9:#6E8419; --k10:#34495E;
   color-scheme:light; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
@@ -19,14 +19,14 @@
   :root:not([data-theme="light"]){
     --bg:#101814; --surface:#17221C; --ink:#E7EFE9; --muted:#9BAEA3; --line:#2A3A31; --soft:#1E2B24; --sel:#22352B;
     --warn:#F2A070; --warnbg:#3A2418;
-    --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A;
+    --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#101814; --surface:#17221C; --ink:#E7EFE9; --muted:#9BAEA3; --line:#2A3A31; --soft:#1E2B24; --sel:#22352B;
   --warn:#F2A070; --warnbg:#3A2418;
-  --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A;
+  --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0;
   color-scheme:dark;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -65,6 +65,11 @@ td.past{opacity:.45}
 td.none{color:var(--muted);font-style:italic}
 td.flag{background:var(--warnbg)}
 td .w{display:block;color:var(--warn);font-size:.8rem;font-weight:600;margin-top:2px}
+.note{display:block;margin-top:4px;padding:3px 8px;border-radius:6px;background:var(--ink);color:var(--bg);font-size:.78rem;font-weight:700;width:fit-content}
+.notes{margin:22px 0 0;padding:14px 18px;border-radius:12px;background:var(--surface);border:2px solid var(--ink)}
+.notes h3{margin:0 0 6px;font-size:1rem;font-weight:800}
+.notes ul{margin:0;padding-left:20px}
+.notes li{margin:2px 0}
 
 .tl{position:relative;min-width:860px;padding:14px 20px 40px 0}
 .tl .ticks{position:absolute;top:14px;bottom:40px;left:170px;right:180px;pointer-events:none}
@@ -87,7 +92,7 @@ td .w{display:block;color:var(--warn);font-size:.8rem;font-weight:600;margin-top
 .month{margin-top:26px}
 .month h3{font-size:1.1rem;margin:0 0 6px;font-weight:700}
 ol.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-ol.list li{display:grid;grid-template-columns:140px 170px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);align-items:baseline}
+ol.list li{display:grid;grid-template-columns:230px 170px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);align-items:baseline}
 ol.list li.past{opacity:.45}
 ol.list .date{font-weight:700;font-variant-numeric:tabular-nums}
 ol.list .date small{display:block;font-weight:400;color:var(--muted)}
@@ -145,6 +150,7 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
   <nav class="tabs" aria-label="Vy"><button data-v="oversikt">Översikt</button><button data-v="guide">Guide: så sätter ni datumen</button></nav>
   <div id="v-oversikt">
   <p class="lead">Varje kommun har sin egen färg. Välj vilka kommuner som ska synas och vilket datum du vill jämföra.</p>
+  <div class="notes" id="notes" hidden></div>
 
   <div class="ctl"><span>Kommuner</span><div class="chips" id="kchips" role="group" aria-label="Kommuner"></div></div>
   <div class="ctl"><span>Jämför datum</span><div class="chips" id="tchips" role="group" aria-label="Datumtyp"></div></div>
@@ -162,7 +168,8 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
   <p class="hint">Reglerna kommer från ”Beslut om datum inför SAO-jobb 2027”. Lovdagar kan sidan inte kontrollera, så sista dagen behöver också jämföras med kommunens läsårstider.</p>
   <div class="scroll"><table id="checks"></table></div>
 
-  <h2>Alla datum i ordning</h2>
+  <h2>Alla datum i processens ordning</h2>
+  <p class="hint">Samma ordning som i guiden och plattformen. Fält med start och slut visas på samma rad.</p>
   <div id="list"></div>
 
   </div>
@@ -172,7 +179,7 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
     <p class="hint">Bygger på ”Beslut om datum inför SAO-jobb 2027”. Datumen som är markerade <b>Ska in i plattformen</b> ska vara inlagda innan höstterminen startar. Kalendariet för elevernas arbetsdagar kan läggas in under höstterminen.</p>
 
     <h3 style="margin:26px 0 0;font-size:1.1rem">Räkna bakåt från första dagen</h3>
-    <p class="hint" style="margin:4px 0 0">Börja längst till höger och räkna bakåt. Från att matchningen startar till sista dag för anställningsbeslut behövs ungefär fem veckor.</p>
+    <p class="hint" style="margin:4px 0 0">Börja längst till höger och räkna bakåt. Från att matchningen startar till att jobbtilldelningen skickas behövs ungefär fem veckor.</p>
     <div class="scroll" style="background:transparent;border:0;border-radius:0"><div class="chain">
       <div class="node">Publicering av jobben</div>
       <div class="gap"></div>
@@ -184,7 +191,7 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
       <div class="gap"><b>ca 2 v</b></div>
       <div class="node">Anställnings­intervjuer</div>
       <div class="gap"><b>1 dag–1 v</b></div>
-      <div class="node">Jobbtilldelning och anställningsbeslut</div>
+      <div class="node">Jobbtilldelning skickas</div>
       <div class="gap"></div>
       <div class="node first">Första dag för SAO-jobb</div>
     </div></div>
@@ -223,9 +230,6 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
       <li><h3>Jobbtilldelning meddelande skickas</h3>
         <div class="meta"><span class="tag">I plattformen: Jobbtilldelning meddelande skickas</span></div>
         <p>Alltid efter intervjuerna, tidigast dagen efter och senast en vecka efter.</p></li>
-      <li><h3>Sista dag för anställningsbeslut</h3>
-        <div class="meta"><span class="tag">Finns inte i plattformen än</span></div>
-        <p>Arbetsgivaren registrerar sitt beslut om anställning i plattformen senast en vecka efter intervjun.</p></li>
     </ol>
   </section>
 
@@ -241,34 +245,33 @@ const TYPES = [
   {id:"handled", name:"Handledarträff"},
   {id:"intervju", name:"Anställningsintervjuer", short:"Intervjuer"},
   {id:"tilldel", name:"Jobbtilldelning meddelande skickas", short:"Jobbtilldelning"},
-  {id:"beslut", name:"Sista dag för anställningsbeslut", short:"Anställningsbeslut"},
   {id:"period", name:"SAO-jobb, första till sista dag", short:"SAO-jobb period"}
 ];
 const K = [
   {name:"Borås", d:{
     event:{s:"2027-01-21"}, synligt:{s:"2027-01-04T14:21", e:"2027-01-08T14:21"},
-    match:{s:"2027-01-19T14:23"}, intervju:{s:"2027-01-25T14:21", e:"2027-02-05T14:22"},
+    match:{s:"2027-01-19T14:23"}, intervju:{s:"2027-01-25T14:00", e:"2027-01-25T16:00", note:"Borås måste flytta tiden för intervjun"}, matchning:{s:"2027-02-01"},
     tilldel:{s:"2027-01-21T14:24"}, period:{s:"2027-03-25", e:"2028-03-23"}}},
   {name:"Eskilstuna", d:{
-    event:{s:"2027-01-26"}, synligt:{s:"2027-01-25T12:00", e:"2027-02-05T16:00"},
+    event:{s:"2027-01-26"}, handled:{s:"2027-02-09"}, matchning:{s:"2027-02-08"}, synligt:{s:"2027-01-25T12:00", e:"2027-02-05T16:00"},
     match:{s:"2027-02-18T12:00"}, intervju:{s:"2027-03-09T14:00", e:"2027-03-09T16:00"},
     tilldel:{s:"2027-03-10T12:00"}, period:{s:"2027-03-23", e:"2028-03-21"}}},
   {name:"Göteborg", d:{
-    event:{s:"2027-01-22"}, synligt:{s:"2027-01-22T15:00", e:"2027-01-31T20:00"},
+    event:{s:"2027-01-22"}, matchning:{s:"2027-02-01", e:"2027-02-12"}, handled:{s:"2027-02-19", e:"2027-02-23"}, synligt:{s:"2027-01-22T15:00", e:"2027-01-31T20:00"},
     match:{s:"2027-02-18T14:00"}, intervju:{s:"2027-02-25T14:00", e:"2027-02-25T16:00"},
     tilldel:{s:"2027-03-11T14:00"}, period:{s:"2027-03-18", e:"2028-03-16"}}},
   {name:"Helsingborg", d:{
-    event:{s:"2026-08-31"}, synligt:{s:"2027-01-11T10:49", e:"2027-01-29T10:49"},
-    match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-15T10:49", e:"2027-02-26T10:49"},
+    event:{s:"2026-01-13", warn:"Årtalet står som 2026, ska troligen vara 2027"}, handled:{s:"2027-01-13"}, synligt:{s:"2027-01-11T10:49", e:"2027-01-29T10:49"},
+    match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-15T10:49", e:"2027-02-15T10:49", warn:"Sluttiden är samma som starttiden, plattformen visar fel", note:"Helsingborg måste lägga in korrekt datum och tid för intervjun i plattformen"},
     tilldel:{s:"2027-02-26T10:00"}, period:{s:"2027-03-03", e:"2028-03-29"}}},
   {name:"Ljusdal", d:{
     event:null, synligt:{s:"2027-01-11T13:00", e:"2027-01-22T16:00"},
     match:{s:"2027-02-04T13:00"}, intervju:{s:"2027-02-18T13:00", e:"2027-02-18T16:00"},
     tilldel:{s:"2027-02-19T15:50"}, period:{s:"2027-03-18", e:"2028-03-16"}}},
   {name:"Umeå", d:{
-    event:null, synligt:{s:"2026-08-24T12:00", e:"2027-04-23T12:00", warn:"Öppet i 8 månader, slutar efter periodstart"},
-    match:{s:"2027-03-01T12:31"}, intervju:{s:"2027-03-18T14:00", e:"2027-03-18T16:00"},
-    tilldel:{s:"2027-04-02T12:32"}, period:{s:"2027-04-08", e:"2028-04-28"}}},
+    event:null, handled:{s:"2027-03-05"}, synligt:{s:"2027-02-18T12:00", e:"2027-02-04T12:00", warn:"Slutdatumet är före startdatumet", note:"Umeå måste lägga in korrekta datum för när jobben är synliga i plattformen"},
+    match:{s:"2027-03-04T08:00"}, intervju:{s:"2027-03-18T14:00", e:"2027-03-18T16:00"},
+    tilldel:{s:"2027-04-02T12:32"}, period:{s:"2027-04-08", e:"2028-04-06"}}},
   {name:"Upplands Väsby", d:{
     event:{s:"2027-01-14"}, synligt:{s:"2027-01-14T08:00", e:"2027-01-25T18:00"},
     match:{s:"2027-02-11T16:00"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-18T16:00"},
@@ -278,13 +281,17 @@ const K = [
     match:{s:"2027-02-16T09:00"}, intervju:{s:"2027-03-02T14:00", e:"2027-03-02T16:00"},
     tilldel:{s:"2027-03-05T10:00"}, period:{s:"2027-03-23", e:"2028-03-14"}}},
   {name:"Västerås", d:{
-    event:null, synligt:{s:"2027-01-12T08:43", e:"2027-01-20T08:45"},
-    match:{s:"2027-02-03T14:00"}, intervju:{s:"2027-02-10T14:00", e:"2027-02-12T16:00"},
+    event:null, matchning:{s:"2027-01-25"}, synligt:{s:"2027-01-12T08:43", e:"2027-01-20T08:45"},
+    match:{s:"2027-02-03T14:00"}, intervju:{s:"2027-02-10T14:00", e:"2027-02-10T16:00"},
     tilldel:{s:"2027-02-17T14:00"}, period:{s:"2027-03-10", e:"2028-02-23"}}},
   {name:"Stockholm", d:{
     event:null, synligt:{s:"2027-01-28T09:00", e:"2027-02-04T15:00"},
-    match:{s:"2027-02-05T15:00"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-25T14:00"},
-    tilldel:{s:"2027-02-05T17:00"}, period:{s:"2027-03-18", e:"2028-03-09"}}}
+    match:{s:"2027-02-05T15:00"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-18T14:00", warn:"Sluttiden är samma som starttiden, plattformen visar fel", note:"Stockholm måste lägga in korrekt sluttid för intervjun i plattformen"},
+    tilldel:{s:"2027-02-05T17:00"}, period:{s:"2027-03-18", e:"2028-03-09"}}},
+  {name:"Sundbyberg", d:{
+    event:null, synligt:{s:"2027-01-11T09:00", e:"2027-02-12T16:00", warn:"Prioriteringen stänger efter matchningsbeskedet"},
+    match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-17T14:00", e:"2027-02-17T10:22", warn:"Sluttiden är före starttiden, plattformen visar fel", note:"Sundbyberg måste lägga in korrekt tid för intervjun i plattformen"},
+    tilldel:{s:"2027-02-26T10:00"}, period:{s:"2027-03-10", e:"2028-03-08"}}}
 ];
 K.forEach((k,i) => k.c = `var(--k${i})`);
 K.sort((a,b) => a.name.localeCompare(b.name, "sv"));
@@ -311,9 +318,9 @@ const RULES = [
   {id:"ordning", type:"matchning", name:"Matchningen startar efter sista dag att prioritera",
    need:["synligt","matchning"], test:d => day(d.matchning.s) >= day(d.synligt.e) ? null : "Startar innan prioriteringen stängt"},
   {id:"besked", type:"match", name:"Matchningsbesked minst ca 2 veckor efter att matchningen startar",
-   need:["matchning","match"], test:d => { const n = dd(d.matchning.s, d.match.s); return n >= 12 ? null : `Bara ${dg(n)} efter matchningsstart`; }},
+   need:["matchning","match"], test:d => { const n = dd(d.matchning.s, d.match.s); return n < 0 ? "Före matchningsstart" : n >= 12 ? null : `Bara ${dg(n)} efter matchningsstart`; }},
   {id:"handled", type:"handled", name:"Handledarträff samma dag eller dagen efter matchningsbeskedet",
-   need:["match","handled"], test:d => { const n = dd(d.match.s, d.handled.s); return n === 0 || n === 1 ? null : `${dg(n)} efter matchningsbeskedet`; }},
+   need:["match","handled"], test:d => { const n = dd(d.match.s, d.handled.s); return n === 0 || n === 1 ? null : n < 0 ? `${dg(-n)} före matchningsbeskedet` : `${dg(n)} efter matchningsbeskedet`; }},
   {id:"intervju", type:"intervju", name:"Intervjuer ca 2 veckor efter matchningsbeskedet",
    need:["match","intervju"], test:d => { const n = dd(d.match.s, d.intervju.s); return n >= 10 && n <= 21 ? null : `${dg(n)} efter matchningsbeskedet`; }},
   {id:"endag", type:"intervju", name:"Intervjun är en dag",
@@ -322,16 +329,12 @@ const RULES = [
    need:["intervju","tilldel"], test:d => { const end = d.intervju.e || d.intervju.s;
      if (d.tilldel.s < end) return "Innan intervjuerna är klara";
      const n = dd(end, d.tilldel.s); return n === 0 ? "Samma dag som intervjuerna" : n <= 7 ? null : `${dg(n)} efter intervjuerna`; }},
-  {id:"beslut", type:"beslut", name:"Anställningsbeslut senast en vecka efter intervjuerna",
-   need:["intervju","beslut"], test:d => { const end = d.intervju.e || d.intervju.s;
-     if (d.beslut.s < end) return "Innan intervjuerna är klara";
-     const n = dd(end, d.beslut.s); return n <= 7 ? null : `${dg(n)} efter intervjuerna`; }},
   {id:"vardag", type:"period", name:"Första och sista dag för SAO-jobb är vardagar",
    need:["period"], test:d => isWeekend(d.period.s) ? "Första dagen är en helg" : isWeekend(d.period.e) ? "Sista dagen är en helg" : null}
 ];
 const runRule = (r,k) => r.need.some(n => !k.d[n]) ? {state:"na", missing:r.need.filter(n => !k.d[n])} : (m => m ? {state:"bad", text:m} : {state:"ok"})(r.test(k.d));
-const warnOf = (k,tid) => { const v = k.d[tid]; if (v && v.warn) return v.warn;
-  const r = RULES.filter(r => r.type === tid); return r.map(x => runRule(x,k)).filter(x => x.state === "bad").map(x => x.text).join(". "); };
+const warnOf = (k,tid) => { const v = k.d[tid]; const own = v && v.warn ? [v.warn] : [];
+  const r = RULES.filter(r => r.type === tid); return own.concat(r.map(x => runRule(x,k)).filter(x => x.state === "bad").map(x => x.text)).join(". "); };
 
 function describe(v){
   if (v.e && same(v.s,v.e)) return {main:`${wd(v.s)} ${shortY(v.s)}`, sub:`kl. ${tm(v.s)}–${tm(v.e)}`};
@@ -405,7 +408,7 @@ function renderTimeline(){
     : (missing.length ? `Inte satt: ${missing.join(", ")}.` : "");
 }
 
-const CAL1 = {event:"Mässa", matchning:"Matchning startar", match:"Matchningsbesked", intervju:"Intervjuer", tilldel:"Jobbtilldelning", beslut:"Sista dag anställningsbeslut", handled:"Handledarträff"};
+const CAL1 = {event:"Mässa", matchning:"Matchning startar", match:"Matchningsbesked", intervju:"Intervjuer", tilldel:"Jobbtilldelning", handled:"Handledarträff"};
 const CAL2 = {synligt:["Jobben publiceras","Sista dag att prioritera"], intervju:["Intervjuer börjar","Intervjuer slutar"], period:["Första dag SAO-jobb","Sista dag SAO-jobb"]};
 function renderCalendar(){
   document.getElementById("tlhead").textContent = "Kalender: alla kommuner och datum";
@@ -461,7 +464,7 @@ function renderMatrix(){
       const ds = describe(v);
       const w = warnOf(k, t.id);
       const cls = [on, day(v.e || v.s) < today ? "past" : "", w ? "flag" : ""].join(" ");
-      h += `<td class="${cls}">${ds.main}${ds.sub ? `<span class="t">${ds.sub}</span>` : ""}${w ? `<span class="w">${w}</span>` : ""}</td>`;
+      h += `<td class="${cls}">${ds.main}${ds.sub ? `<span class="t">${ds.sub}</span>` : ""}${w ? `<span class="w">${w}</span>` : ""}${v.note ? `<span class="note">${v.note}</span>` : ""}</td>`;
     });
     h += `</tr>`;
   });
@@ -469,24 +472,41 @@ function renderMatrix(){
   m.querySelectorAll("thead button").forEach(b => b.onclick = () => { type = b.dataset.t; save(); render(); document.getElementById("tlhead").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); });
 }
 
+const STEP = {
+  synligt:{f:"Jobb synligt mellan", r:"Start: jobben publiceras. Slut: prioriteringen stänger."},
+  event:{f:"SAO-jobbsevent", r:"Mässan, medan jobben är synliga."},
+  matchning:{f:"", r:"Finns inte i plattformen. Läggs efter att prioriteringen har stängt."},
+  match:{f:"Matchningsmeddelande skickas", r:"Minst ca 2 veckor efter att matchningen startat."},
+  handled:{f:"Handledarträffen", r:"Samma dag som matchningsbeskedet eller dagen efter."},
+  intervju:{f:"Jobbintervjudag", r:"En dag, ca 2 veckor efter matchningsbeskedet."},
+  tilldel:{f:"Jobbtilldelning meddelande skickas", r:"Efter intervjuerna, tidigast dagen efter och senast en vecka efter."},
+  period:{f:"SAO-jobb period", r:"Start: första dagen för SAO-jobb. Slut: sista dagen."}
+};
 function renderList(){
-  const rows = [];
-  K.forEach((k,i) => { if (!shown[i]) return;
-    for (const t of TYPES) { const v = k.d[t.id]; if (!v) continue;
-      if (v.e && !same(v.s,v.e)) { rows.push({k,t,s:v.s,label:`${t.name} börjar`}); rows.push({k,t,s:v.e,label:`${t.name} slutar`}); }
-      else rows.push({k,t,s:v.s,label:t.name,until:v.e ? tm(v.e) : ""});
-    }
-  });
-  rows.sort((a,b) => a.s.localeCompare(b.s) || a.k.name.localeCompare(b.k.name,"sv"));
-  const groups = {};
-  rows.forEach(r => { const d = day(r.s); (groups[`${d.getFullYear()}-${String(d.getMonth()).padStart(2,"0")}`] ||= {y:d.getFullYear(), m:d.getMonth(), r:[]}).r.push(r); });
-  document.getElementById("list").innerHTML = Object.keys(groups).sort().map(key => { const g = groups[key];
-    return `<section class="month"><h3>${MON[g.m][0].toUpperCase()+MON[g.m].slice(1)} ${g.y}</h3><ol class="list">${g.r.map(r =>
-      `<li class="${day(r.s) < today ? "past" : ""}"><span class="date">${wd(r.s)} ${short(r.s)}${tm(r.s) ? `<small>kl. ${tm(r.s)}${r.until ? "–"+r.until : ""}</small>` : ""}</span><span class="k"><i style="background:${r.k.c}"></i>${r.k.name}</span><span class="what" style="${r.t.id===type ? "font-weight:700" : ""}">${r.label}</span></li>`).join("")}</ol></section>`;
+  let n = 0;
+  document.getElementById("list").innerHTML = TYPES.map(t => {
+    const st = STEP[t.id] || {f:"", r:""};
+    const have = [], miss = [];
+    K.forEach((k,i) => { if (!shown[i]) return; (k.d[t.id] ? have : miss).push(k); });
+    have.sort((a,b) => a.d[t.id].s.localeCompare(b.d[t.id].s) || a.name.localeCompare(b.name,"sv"));
+    const num = st.f ? `${++n}. ` : "";
+    const rows = have.map(k => { const v = k.d[t.id]; const ds = describe(v); const w = warnOf(k, t.id);
+      return `<li class="${day(v.e || v.s) < today ? "past" : ""}"><span class="date">${ds.main}${ds.sub ? `<small>${ds.sub}</small>` : ""}</span><span class="k"><i style="background:${k.c}"></i>${k.name}</span><span class="what">${w ? `<span style="color:var(--warn,#b45309)">${w}</span>` : ""}${v.note ? `<span class="note">${v.note}</span>` : ""}</span></li>`; }).join("");
+    return `<section class="month"><h3 style="${t.id===type ? "text-decoration:underline;text-underline-offset:4px" : ""}">${num}${st.f || t.name}${st.f ? "" : " <small style=\"font-weight:400;color:var(--muted)\">(ej i plattformen)</small>"}</h3>
+      <p class="hint" style="margin:0 0 8px">${st.r}</p>
+      ${rows ? `<ol class="list">${rows}</ol>` : ""}
+      ${miss.length ? `<p class="hint" style="margin:6px 0 0">${missingLabel(t.id)}: ${miss.map(k => k.name).join(", ")}</p>` : ""}</section>`;
   }).join("");
 }
 
-function render(){ renderChips(); renderTimeline(); renderMatrix(); renderChecks(); renderList(); }
+function renderNotes(){
+  const items = [];
+  K.forEach(k => TYPES.forEach(t => { const v = k.d[t.id]; if (v && v.note) items.push(`<li><b>${k.name}</b>, ${tname(t).toLowerCase()}: ${v.note}</li>`); }));
+  const el = document.getElementById("notes");
+  el.hidden = !items.length;
+  el.innerHTML = `<h3>Att göra</h3><ul>${items.join("")}</ul>`;
+}
+function render(){ renderChips(); renderNotes(); renderTimeline(); renderMatrix(); renderChecks(); renderList(); }
 render();
 let view = "oversikt";
 try { if (localStorage.getItem("sao-vy") === "guide") view = "guide"; } catch(e) {}
