@@ -11,7 +11,7 @@
 :root{
   --bg:#F6F8F5; --surface:#FFFFFF; --ink:#16251D; --muted:#5B6B62; --line:#DCE4DE; --soft:#EAF0EB; --sel:#E3EEE6;
   --warn:#B4531F; --warnbg:#FBEDE3;
-  --k0:#3B6A9C; --k1:#D9771A; --k2:#C9434A; --k3:#3E918A; --k4:#4A8A40; --k5:#B89A16; --k6:#95618A; --k7:#D9707C; --k8:#87604B; --k9:#6E8419; --k10:#34495E;
+  --k0:#3B6A9C; --k1:#D9771A; --k2:#C9434A; --k3:#3E918A; --k4:#4A8A40; --k5:#B89A16; --k6:#95618A; --k7:#D9707C; --k8:#87604B; --k9:#6E8419; --k10:#34495E; --k11:#5B4BB7;
   color-scheme:light; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
@@ -19,14 +19,14 @@
   :root:not([data-theme="light"]){
     --bg:#101814; --surface:#17221C; --ink:#E7EFE9; --muted:#9BAEA3; --line:#2A3A31; --soft:#1E2B24; --sel:#22352B;
     --warn:#F2A070; --warnbg:#3A2418;
-    --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0;
+    --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0; --k11:#A99CF0;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#101814; --surface:#17221C; --ink:#E7EFE9; --muted:#9BAEA3; --line:#2A3A31; --soft:#1E2B24; --sel:#22352B;
   --warn:#F2A070; --warnbg:#3A2418;
-  --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0;
+  --k0:#6F9FD3; --k1:#F5A24E; --k2:#EC7A80; --k3:#7CC6C0; --k4:#7DC172; --k5:#E9CF55; --k6:#C79BBB; --k7:#FFAAB4; --k8:#C29B83; --k9:#B9D15A; --k10:#A9BCD0; --k11:#A99CF0;
   color-scheme:dark;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -161,6 +161,8 @@ a:focus-visible{outline:2px solid var(--k0);outline-offset:2px}
 .emp-card li.start{font-weight:700}
 .emp-card li.none b{font-weight:400;color:var(--muted);font-style:italic}
 .emp-card li.past{opacity:.45}
+.done{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--k4);color:var(--bg);font-size:.72rem;font-weight:700;vertical-align:2px}
+.mailed{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#F2C94C;color:#3A2E00;font-size:.72rem;font-weight:700;vertical-align:2px}
 footer{margin-top:44px;color:var(--muted);font-size:.85rem}
 </style>
 </head>
@@ -240,13 +242,13 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
       <div class="gap"></div>
       <div class="node"><span class="num">7</span>Matchning startar</div>
       <div class="gap"><b>minst 2 v</b></div>
-      <div class="node"><span class="num">8</span>Matchnings­besked</div>
+      <div class="node"><span class="num">8</span>Matchnings&shy;besked</div>
       <div class="gap"><b>0–1 dag</b></div>
-      <div class="node"><span class="num">9</span>Handledar­träff</div>
+      <div class="node"><span class="num">9</span>Handledar&shy;träff</div>
     </div>
     <div class="chain">
       <div class="gap"><b>ca 2 v efter besked</b></div>
-      <div class="node"><span class="num">10</span>Anställnings­intervju</div>
+      <div class="node"><span class="num">10</span>Anställnings&shy;intervju</div>
       <div class="gap"><b>1 dag–1 v</b></div>
       <div class="node"><span class="num">11</span>Jobbtilldelning skickas</div>
       <div class="gap"></div>
@@ -266,7 +268,7 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
         <p>Se till att dagen inte är en lovdag. Jämför med kommunens läsårstider.</p></li>
       <li><h3>Kalendarium för vilka dagar eleverna jobbar</h3>
         <div class="meta"><span class="tag must">Ska in i plattformen</span><span class="tag">Kan läggas in under höstterminen</span></div>
-        <p>Det här gör skolan. Räkna bort lov och röda dagar. Bestäm också vilken som blir sista arbetsdagen före och första efter sommarlovet och jullovet.</p></li>
+        <p>Skolan fyller i dessa datum i plattformen. Räkna bort lov och röda dagar. Bestäm också vilken som blir sista arbetsdagen före och första efter sommarlovet och jullovet.</p></li>
       <li><h3>Digital publicering av alla SAO-jobb</h3>
         <div class="meta"><span class="tag must">Ska in i plattformen</span><span class="tag">I plattformen: Jobb synligt, första datumet</span></div>
         <p>Dagen då eleverna får se jobben.</p></li>
@@ -293,7 +295,7 @@ footer{margin-top:44px;color:var(--muted);font-size:.85rem}
     </ol>
   </section>
 
-  <footer>Föräldramöten visas inte i översikten. Fira första skiftet är avstängt i alla kommuner.</footer>
+  <footer>Föräldramöten visas inte i översikten. Fira första skiftet är påslaget i Eskilstuna och Uppsala och avstängt i övriga kommuner.</footer>
 </main>
 
 <script>
@@ -312,46 +314,48 @@ const K = [
     event:{s:"2027-01-21"}, synligt:{s:"2027-01-04T14:21", e:"2027-01-08T14:21"},
     match:{s:"2027-01-19T14:23"}, intervju:{s:"2027-01-25T14:00", e:"2027-01-25T16:00", note:"Borås måste flytta tiden för intervjun"}, matchning:{s:"2027-02-01"},
     tilldel:{s:"2027-01-21T14:24"}, period:{s:"2027-03-25", e:"2028-03-23"}}},
-  {name:"Eskilstuna", d:{
+  {name:"Eskilstuna", done:true, d:{
     event:{s:"2027-01-26"}, handled:{s:"2027-02-09"}, matchning:{s:"2027-02-08"}, synligt:{s:"2027-01-25T12:00", e:"2027-02-05T16:00"},
     match:{s:"2027-02-18T12:00"}, intervju:{s:"2027-03-09T14:00", e:"2027-03-09T16:00"},
     tilldel:{s:"2027-03-10T12:00"}, period:{s:"2027-03-23", e:"2028-03-21"}}},
-  {name:"Göteborg", d:{
+  {name:"Göteborg", done:true, d:{
     event:{s:"2027-01-22"}, matchning:{s:"2027-02-01", e:"2027-02-12"}, handled:{s:"2027-02-19", e:"2027-02-23"}, synligt:{s:"2027-01-22T15:00", e:"2027-01-31T20:00"},
     match:{s:"2027-02-18T14:00"}, intervju:{s:"2027-02-25T14:00", e:"2027-02-25T16:00"},
     tilldel:{s:"2027-03-11T14:00"}, period:{s:"2027-03-18", e:"2028-03-16"}}},
-  {name:"Helsingborg", d:{
-    event:{s:"2027-01-13"}, handled:{s:"2027-01-13"}, matchning:{s:"2027-01-27"}, synligt:{s:"2027-01-11T10:49", e:"2027-01-29T10:49"},
-    match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-15T10:49", e:"2027-02-15T10:49", warn:"Sluttiden är samma som starttiden, plattformen visar fel", note:"Helsingborg måste lägga in korrekt datum och tid för intervjun i plattformen"},
-    tilldel:{s:"2027-02-26T10:00"}, period:{s:"2027-03-03", e:"2028-03-29"}}},
-  {name:"Ljusdal", d:{
+  {name:"Helsingborg", done:true, d:{
+    event:{s:"2027-01-13"}, handled:{s:"2027-01-13"}, matchning:{s:"2027-01-27"}, synligt:{s:"2027-01-11T08:00", e:"2027-01-26T15:00"},
+    match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-17T10:00", e:"2027-02-17T16:00"},
+    tilldel:{s:"2027-02-24T10:00"}, period:{s:"2027-03-03", e:"2028-03-08"}}},
+  {name:"Ljusdal", mailed:true, d:{
     event:null, synligt:{s:"2027-01-11T13:00", e:"2027-01-22T16:00"},
     match:{s:"2027-02-04T13:00"}, intervju:{s:"2027-02-18T13:00", e:"2027-02-18T16:00"},
     tilldel:{s:"2027-02-19T15:50"}, period:{s:"2027-03-18", e:"2028-03-16"}}},
-  {name:"Umeå", d:{
+  {name:"Umeå", mailed:true, d:{
     event:null, handled:{s:"2027-03-05"}, synligt:{s:"2027-02-18T12:00", e:"2027-02-04T12:00", warn:"Slutdatumet är före startdatumet", note:"Umeå måste lägga in korrekta datum för när jobben är synliga i plattformen"},
     match:{s:"2027-03-04T08:00"}, intervju:{s:"2027-03-18T14:00", e:"2027-03-18T16:00"},
     tilldel:{s:"2027-04-02T12:32"}, period:{s:"2027-04-08", e:"2028-04-06"}}},
-  {name:"Upplands Väsby", d:{
-    event:{s:"2027-01-14"}, matchning:{s:"2027-01-28", e:"2027-01-29"}, synligt:{s:"2027-01-14T08:00", e:"2027-01-25T18:00"},
+  {name:"Upplands Väsby", done:true, d:{
+    event:{s:"2027-01-14"}, handled:{s:"2027-02-12"}, matchning:{s:"2027-01-28", e:"2027-01-29"}, synligt:{s:"2027-01-14T08:00", e:"2027-01-25T18:00"},
     match:{s:"2027-02-11T16:00"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-18T16:00"},
     tilldel:{s:"2027-02-23T10:30"}, period:{s:"2027-03-18", e:"2028-03-09"}}},
-  {name:"Uppsala", d:{
-    event:null, synligt:{s:"2027-01-26T09:00", e:"2027-02-05T16:00"},
-    match:{s:"2027-02-16T09:00"}, intervju:{s:"2027-03-02T14:00", e:"2027-03-02T16:00"},
-    tilldel:{s:"2027-03-05T10:00"}, period:{s:"2027-03-23", e:"2028-03-14"}}},
-  {name:"Västerås", d:{
+  {name:"Uppsala", done:true, d:{
+    event:{s:"2027-02-01"}, matchning:{s:"2027-03-01"}, synligt:{s:"2027-01-26T09:00", e:"2027-02-08T10:00"},
+    match:{s:"2027-03-01T10:00"}, intervju:{s:"2027-03-09T14:00", e:"2027-03-09T16:00"},
+    tilldel:{s:"2027-03-15T10:00"}, period:{s:"2027-03-23", e:"2028-03-07"}}},
+  {name:"Västerås", done:true, d:{
     event:null, matchning:{s:"2027-01-25"}, synligt:{s:"2027-01-12T08:43", e:"2027-01-20T08:45"},
     match:{s:"2027-02-03T14:00"}, intervju:{s:"2027-02-10T14:00", e:"2027-02-10T16:00"},
     tilldel:{s:"2027-02-17T14:00"}, period:{s:"2027-03-10", e:"2028-02-23"}}},
-  {name:"Stockholm", d:{
-    event:null, synligt:{s:"2027-01-28T09:00", e:"2027-02-04T15:00"},
-    match:{s:"2027-02-05T15:00", note:"Stockholm måste flytta matchningsbeskedet till minst en vecka efter att prioriteringen stänger, tidigast 11 februari"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-18T14:00", warn:"Sluttiden är samma som starttiden, plattformen visar fel", note:"Stockholm måste lägga in korrekt sluttid för intervjun i plattformen"},
-    tilldel:{s:"2027-02-05T17:00", note:"Stockholm måste flytta jobbtilldelningen till efter intervjun, 19–25 februari"}, period:{s:"2027-03-18", e:"2028-03-09"}}},
-  {name:"Sundbyberg", d:{
+  {name:"Stockholm", done:true, d:{
+    event:null, handled:{s:"2027-01-21"}, synligt:{s:"2027-01-28T09:00", e:"2027-02-04T15:00"},
+    match:{s:"2027-02-10T15:00"}, intervju:{s:"2027-02-18T14:00", e:"2027-02-18T16:00"},
+    tilldel:{s:"2027-02-19T17:00"}, period:{s:"2027-03-18", e:"2028-03-09"}}},
+  {name:"Sundbyberg", mailed:true, d:{
     event:null, synligt:{s:"2027-01-11T09:00", e:"2027-02-12T16:00", warn:"Prioriteringen stänger efter matchningsbeskedet"},
     match:{s:"2027-02-10T10:00"}, intervju:{s:"2027-02-17T14:00", e:"2027-02-17T10:22", warn:"Sluttiden är före starttiden, plattformen visar fel", note:"Sundbyberg måste lägga in korrekt tid för intervjun i plattformen"},
-    tilldel:{s:"2027-02-26T10:00"}, period:{s:"2027-03-10", e:"2028-03-08"}}}
+    tilldel:{s:"2027-02-26T10:00"}, period:{s:"2027-03-10", e:"2028-03-08"}}},
+  {name:"Sundsvall", d:{
+    event:null, synligt:null, match:null, intervju:null, tilldel:null, period:null}}
 ];
 K.forEach((k,i) => k.c = `var(--k${i})`);
 K.sort((a,b) => a.name.localeCompare(b.name, "sv"));
@@ -397,7 +401,7 @@ const RULES = [
    need:["period"], test:d => isWeekend(d.period.s) ? "Första dagen är en helg" : isWeekend(d.period.e) ? "Sista dagen är en helg" : null}
 ];
 const runRule = (r,k) => r.need.some(n => !k.d[n]) ? {state:"na", missing:r.need.filter(n => !k.d[n])} : (m => m ? {state:"bad", text:m} : {state:"ok"})(r.test(k.d));
-const warnOf = (k,tid) => { const v = k.d[tid]; const own = v && v.warn ? [v.warn] : [];
+const warnOf = (k,tid) => { if (k.done) return ""; const v = k.d[tid]; const own = v && v.warn ? [v.warn] : [];
   const r = RULES.filter(r => r.type === tid); return own.concat(r.map(x => runRule(x,k)).filter(x => x.state === "bad").map(x => x.text)).join(". "); };
 
 function describe(v){
@@ -508,7 +512,8 @@ function renderCalendar(){
 function renderChecks(){
   let h = `<thead><tr><th>Kommun</th>${RULES.map(r => `<th>${r.name}</th>`).join("")}</tr></thead><tbody>`;
   K.forEach((k,i) => { if (!shown[i]) return;
-    h += `<tr><th scope="row" style="--kc:${k.c}">${k.name}</th>` + RULES.map(r => { const res = runRule(r,k);
+    if (k.done) { h += `<tr><th scope="row" style="--kc:${k.c}">${k.name} <span class="done">✓ Klart</span></th><td class="ok" colspan="${RULES.length}">✓ Helt klart, alla datum är kontrollerade och godkända</td></tr>`; return; }
+    h += `<tr><th scope="row" style="--kc:${k.c}">${k.name}${k.mailed ? ` <span class="mailed">✉ Mailat</span>` : ""}</th>` + RULES.map(r => { const res = runRule(r,k);
       if (res.state === "ok") return `<td class="ok">✓ Ok</td>`;
       if (res.state === "bad") return `<td class="bad">✗ ${res.text}</td>`;
       return res.missing.every(n => PENDING.includes(n))
@@ -521,7 +526,7 @@ function renderChecks(){
 function renderMatrix(){
   let h = `<thead><tr><th>Kommun</th>${TYPES.map(t => `<th class="${t.id===type?"on":""}"><button data-t="${t.id}">${tname(t)}</button></th>`).join("")}</tr></thead><tbody>`;
   K.forEach((k,i) => { if (!shown[i]) return;
-    h += `<tr><th scope="row" style="--kc:${k.c}">${k.name}</th>`;
+    h += `<tr><th scope="row" style="--kc:${k.c}">${k.name}${k.done ? ` <span class="done">✓ Klart</span>` : ""}${k.mailed ? ` <span class="mailed">✉ Mailat</span>` : ""}</th>`;
     TYPES.forEach(t => {
       const v = k.d[t.id]; const on = t.id === type ? "on" : "";
       if (!v) { h += `<td class="none ${on}">${missingLabel(t.id)}</td>`; return; }
